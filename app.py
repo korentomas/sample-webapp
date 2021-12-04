@@ -48,9 +48,12 @@ def uploadFiles():
         # set the file path
         uploaded_file.save(file_path)
         userstoscrap = parseCSV(file_path)
+        userstoscrap = ('\n'.join('{}' for _ in range(len(userstoscrap))).format(*userstoscrap))
         
         # save the file
-    return render_template("index.html", userstoscrap = userstoscrap)
-
+        return render_template("index.html", filename=uploaded_file.filename, userstoscrap = userstoscrap)
+    else:
+        return render_template("index.html")
+ 
 if __name__ == "__main__":
     app.run()
