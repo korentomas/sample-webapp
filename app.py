@@ -12,21 +12,7 @@ app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 @app.route("/")
 def index():
     
-    # Load current count
-    f = open("count.txt", "r")
-    count = int(f.read())
-    f.close()
-
-    # Increment the count
-    count += 1
-
-    # Overwrite the count
-    f = open("count.txt", "w")
-    f.write(str(count))
-    f.close()
-    
-    # Render HTML with count variable
-    return render_template("index.html", count=count)
+    return render_template("index.html")
 
 def parseCSV(filePath):
     csvData = pd.read_csv(filePath)
@@ -48,10 +34,11 @@ def uploadFiles():
         # set the file path
         uploaded_file.save(file_path)
         userstoscrap = parseCSV(file_path)
+        userslen = len(userstoscrap)
         userstoscrap = ('\n'.join('{}' for _ in range(len(userstoscrap))).format(*userstoscrap))
         
         # save the file
-        return render_template("index.html", filename=uploaded_file.filename, userstoscrap = userstoscrap)
+        return render_template("index.html", filename=uploaded_file.filename, userstoscrap = userstoscrap, userslen=userslen)
     else:
         return render_template("index.html")
  
