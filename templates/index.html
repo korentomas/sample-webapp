@@ -23,5 +23,10 @@
 
 <div>
     <h1>Hola!</h1><br>
-    <p>Esta página ha sido visitada {{ count }} veces.</p>
+    <p>users : {{ userstoscrap }}.</p>
+    <h1>Upload your CSV file</h1>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
 </div>
