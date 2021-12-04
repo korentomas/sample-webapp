@@ -10,6 +10,23 @@ UPLOAD_FOLDER = 'files'
 app.config['UPLOAD_FOLDER'] =  UPLOAD_FOLDER
 
 @app.route("/")
+def index():
+    
+    # Load current count
+    f = open("count.txt", "r")
+    count = int(f.read())
+    f.close()
+
+    # Increment the count
+    count += 1
+
+    # Overwrite the count
+    f = open("count.txt", "w")
+    f.write(str(count))
+    f.close()
+    
+    # Render HTML with count variable
+    return render_template("index.html", count=count)
 
 def parseCSV(filePath):
     csvData = pd.read_csv(filePath)
