@@ -6,3 +6,12 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 Werkzeug==1.0.1
+
+json
+numpy
+joblib
+numpy
+re
+nltk
+matplotlib
+sklearn
