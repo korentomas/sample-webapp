@@ -9,7 +9,6 @@ Werkzeug==1.0.1
 numpy
 joblib
 numpy
-re
 nltk
 matplotlib
 sklearn
