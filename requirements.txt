@@ -8,7 +8,6 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.1
 numpy
 joblib
-os
 requests
 gspread
 oauth2client
