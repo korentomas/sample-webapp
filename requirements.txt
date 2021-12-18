@@ -8,6 +8,11 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.1
 numpy
 joblib
+numpy
+nltk
+matplotlib
+sklearn
 requests
 gspread
 oauth2client
+
