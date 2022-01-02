@@ -23,14 +23,36 @@ def index():
     
     return render_template("index.html")
  
+@app.route("/part1")
+def part1():
+    return render_template("part1.html")
+
+@app.route("/part2")
+def part2():
+    return render_template("part2.html")
+
+def parseCSVPB(filePath):
+    csvData = pd.read_csv(filePath,low_memory=False)
+    csvData['id'] = csvData['id'].astype(str)
+
+    df_scraped = pd.read_csv(r'scrapedId.csv',low_memory=False)
+    csvData = csvData.loc[~csvData["id"].isin(df_scraped.Id),:]
+    userstoscrap = csvData.username.values
+    csvDataId = csvData.id.tolist()
+    df_scraped.append(csvDataId)
+    df_scraped.to_csv(r'scrapedId2.csv', index=False)
+    return userstoscrap
+
 def parseCSV(filePath):
     csvData = pd.read_csv(filePath)
     csvData['id'] = csvData['id'].astype(str)
+
     df_scraped = pd.read_csv(r'scrapedId.csv',low_memory=False)
     csvData = csvData.loc[~csvData["id"].isin(df_scraped.Id),:]
     csvData = csvData.dropna(subset=['bio'])
     csvData = csvData[~csvData['bio'].str.isnumeric().fillna(True)]
     
+    # si csvData no tiene filas significa que todos los ids ya fueron scrapeados.
 
     bios = csvData['bio']
     bios = [p.sub('', x) for x in bios.tolist()]
@@ -46,7 +68,27 @@ def parseCSV(filePath):
     
     return newdf
 
-@app.route("/", methods=['POST'])
+@app.route("/part1", methods=['POST'])
+def uploadFilesPB():
+    # get the uploaded file
+    uploaded_file = request.files['filePB']
+    if uploaded_file.filename != '':
+        filename=uploaded_file.filename
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        # set the file path
+        uploaded_file.save(file_path)
+        userstoscrap = parseCSVPB(file_path)
+        userslen = len(userstoscrap)
+        userstoscrap = ('\n'.join('{}' for _ in range(len(userstoscrap))).format(*userstoscrap))
+
+        # save the file
+        return render_template("part1.html", filename=filename, userslen=userslen, userstoscrap=userstoscrap)
+    else:
+        return render_template("part1.html")
+
+
+
+@app.route("/part2", methods=['POST'])
 def uploadFiles():
     # get the uploaded file
     uploaded_file = request.files['file']
@@ -64,9 +106,9 @@ def uploadFiles():
         uploadCsv(labeled_file_path)
 
         # save the file
-        return render_template("index.html", filename=filename, labeled_file_path=labeled_file_path)
+        return render_template("part2.html", filename=filename, labeled_file_path=labeled_file_path)
     else:
-        return render_template("index.html")
+        return render_template("part2.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():

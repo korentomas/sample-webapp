@@ -28,13 +28,14 @@
 
 <div>
     <h1>Klouser scrapeo</h1>
-
     <a href="/part1">part1</a>
-    <a href="/part2">part2</a>
+    <h2>{{ filename }}</h2><br>
+
+    <h2>Subir CSV de ProfileBud con bios</h2>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+    
 
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
-<script>
-    var clip = new Clipboard('.btn');
-  </script>

@@ -28,9 +28,21 @@
 
 <div>
     <h1>Klouser scrapeo</h1>
-
-    <a href="/part1">part1</a>
     <a href="/part2">part2</a>
+    <h2>{{ filename }}</h2><br>
+    
+    <h2>Subir CSV de PhantomBuster</h2>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="filePB"></p>
+      <p><input type="submit" value="SubmitPB"></p>
+    </form>
+
+    <button class="btn" data-clipboard-target="#users">
+        Copy to clipboard
+    </button>
+
+    <p>n users: {{ userslen }}</p>
+    <p id ="users">{{ userstoscrap }}</p>
 
 </div>
 
