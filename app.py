@@ -225,7 +225,9 @@ def githubIssue():
     data = request.json
     #print(data)
     try:
-        print(data['resultObject'])
+        print(data['resultObject']['csvUrl'])
+        resultFile = pd.read_csv(data['resultObject']['csvUrl'], low_memory=False)
+        print(resultFile.head())
     except ValueError:
         print('eror:', ValueError)
     return data
