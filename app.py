@@ -223,7 +223,7 @@ def uploadCsv(labeled_file_path):
 @app.route('/pbDone',methods=['POST'])
 def githubIssue():
     data = request.json
-    print(data)
+    #print(data)
     try:
         print(data['resultObject'])
     except ValueError:
