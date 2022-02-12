@@ -1,3 +1,4 @@
+from typing import Type
 from flask import Flask, json, render_template, request
 import json
 import joblib
@@ -225,11 +226,11 @@ def githubIssue():
     data = request.json
     #print(data)
     try:
-        print(data['resultObject']['csvUrl'])
-        resultFile = pd.read_csv(data['resultObject']['csvUrl'], low_memory=False)
+        #print(data['resultObject']['csvURL'])
+        resultFile = pd.read_csv(data['resultObject']['csvURL'], low_memory=False)
         print(resultFile.head())
-    except ValueError:
-        print('eror:', ValueError)
+    except ValueError or TypeError:
+        print('eror:', ValueError, TypeError)
     return data
 
 
