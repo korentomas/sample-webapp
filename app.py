@@ -227,8 +227,11 @@ def githubIssue():
     #print(data)
     try:
         #print(data['resultObject']['csvURL'])
-        resultFile = pd.read_csv(data['resultObject']['csvURL'], low_memory=False)
-        print(resultFile.head())
+        if list(data['resultObject'].keys())[0] == 'csvURL':
+            resultFile = pd.read_csv(data['resultObject']['csvURL'], low_memory=False)
+            print(resultFile.head())
+        else:
+            print('no se, está raro:', data)
     except ValueError or TypeError:
         print('eror:', ValueError, TypeError)
     return data
